@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 id="heading">This is HTML</h1>
+    <!-- <p>236062</p> -->
+     <button onclick="changeColor()">Change Color</button>
+     
+
+    <script>
+
+        const changeColor=()=>{
+            document.getElementById('heading').style.color="red"
+        }
+        console.log("Hello Name");
+        // document.getElementById('heading').innerHTML="The "
+
+        var name = "Sonu"
+        var name = "Monu"
+
+        let branch = "B-tech";
+        branch = "MBA";
+
+        const pi = "3.14";
+
+        let age = 19
+        if (age >= 18) {
+            console.log("You are eligible to vote")
+        }
+        else if (age == 18) {
+            console.log("You are 18 and eligible")
+        } else {
+            console.log("You are not eligible to vote")
+        }
+        // This is normal function
+        function addMe(a, b) {
+            console.log(a + b)
+            return a + b
+        }
+        // this is arrow function
+        // const addMe2 = (a,b,c)=>{
+        //     console.log(a+b+c)
+        // }
+
+        const mySelf = {
+            name: "Sonu",
+            branch: "Btech",
+            linkedin: "/thesonukr",
+            github: "/iamsonukr",
+            subject: {
+                maths: 87,
+                science: 84,
+                english: 88
+            }
+        }
+
+
+        if(day || night){
+            console.log("One of them or both are agreed")
+        }else{
+            console.log("Both are not agreed")
+        }
+
+        const fruits = ["Banana", "Orange", "Apple", "Mango"];
+        fruits.pop();
+        fruits.push("kiwi")
+
+
+        console.log(mySelf.name)
+        console.log(mySelf["name"])
+
+
+        console.log(fruits[-1])
+    </script>
+</body>
+
+</html>

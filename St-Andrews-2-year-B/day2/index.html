@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Hello Everyone My name is <span id="name">username</span></h1>
+
+
+    <h1>npm create vite@latest</h1>
+
+    <form action="">
+        <label for="">username</label>
+        <input type="text">
+
+        <label for="">password</label>
+        <input type="password">
+    </form>
+    <button onclick="checkPassword()">Sign In</button>
+
+    
+    <!-- js starts here -->
+     <script>
+        // browser object model
+        const checkPassword=()=>{
+            
+            // window.alert("Password is Incorrect")
+            window.confirm("Do you want to log in?")
+        }
+
+        // changing the name of the user
+        const changeName=()=>{
+            let name=window.prompt()
+            document.getElementById('name').innerHTML=name
+        }
+
+        // setTimeout(()=>{
+        //     changeName()
+        // },5000)
+
+        setInterval(()=>{
+            console.log("Tic Tic",)
+            console.log("")   
+        },5000)
+
+        // node --version
+
+        // Asd123!@#
+
+        // Array of users
+        const users=["Nikhil","Sohan","Mohan","Krish","Kriti"]
+
+        // mapping on each elements of user
+        users.map((user)=>(
+            console.log("My name is "+ user)
+        ))
+
+        // ALTERNAT IN for loop
+        for(let i=0; i<users.length;i++){
+            console.log("My name is "+ users[i])
+        }
+
+
+        // SetTimeOut and SetInterval
+
+     </script>
+</body>
+</html>

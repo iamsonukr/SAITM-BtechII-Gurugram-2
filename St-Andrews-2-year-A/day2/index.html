@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Gaurav Goswami -->
+     <!-- Sharon  -->
+      <!-- Sagar , Nishant, Himanshi, Alok, Prateek -->
+
+    <h1 id="name">username</h1>
+    <h1 id="name2">username</h1>
+    <h1 id="nam">npm create vite@latest</h1>
+    <button onclick="changeName()">Change Name</button>
+    <button onclick="showAlert()">This will Show an Alert</button>
+    <button onclick="showConfirm()">This will Show an Confirm</button>
+
+    <script>
+        // Browser Object Models
+        const changeName=()=>{
+            const name=window.prompt("Enter your name")
+            document.getElementById('name').innerHTML=name
+        }
+        const showAlert=()=>{
+            window.alert("This is the alert")
+        }
+        const showConfirm=()=>{
+            window.confirm("Are you able to find the difference ?")
+        }
+
+        // SetInterval and SetTimeout
+        const changeName2=()=>{
+            document.getElementById('name2').innerHTML='Sohan'
+        }
+
+        // using setTimeOut
+        setTimeout(()=>{
+            changeName2()
+        },5000)
+
+
+        setInterval(()=>{
+            console.log("Tic tic")
+            console.log("")
+        },1000)
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greeting Page with Weather</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: black !important;
+            color: white !important;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* background: linear-gradient(to bottom, #ffffff, #E0F6FF); */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.4s ease;
+        }
+
+        .app {
+            /* background-color: rgba(255, 255, 255, 0.8); */
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+        }
+
+        .app.warm {
+            /* background: linear-gradient(to bottom, #ffffff, #ffdcce); */
+        }
+
+        h1 {
+            color: #34495e;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        
+        .location {
+            color: #16a085;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .date {
+            color: #2c3e50;
+            font-size: 0.8em;
+            font-style: italic;
+            margin: 10px 0;
+        }
+
+        .weather-box {
+            margin-top: 20px;
+        }
+
+        .weather-box .temp {
+            color: #616161;
+            font-size: 1em;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .weather-box .weather {
+            color: #949494;
+            font-size: 0.6em;
+            /* margin-top: 10px; */
+            font-weight: 700;
+        }
+
+        /* time */
+        #dateTime{
+            font-size: 1em;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: rgb(109, 109, 109);
+            font-weight: 400;
+            
+        }
+        .day{
+            color: #34495e;
+        }
+
+        @media (max-width: 480px) {
+            .app {
+                padding: 1rem;
+            }
+            h1 {
+                font-size: 1em;
+            }
+            .location-box .location {
+                font-size: 0.5em;
+            }
+            .weather-box .temp {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <h1 id="greeting">Good day! 🌻</h1>
+        <h2 class="date">Web Development Training </h2>
+        <h2 class="day">DAY 2</h2>
+        <div class="location-box">
+            <div class="date" id="currentDate"></div>
+            <div id="dateTime"></div>
+        </div>
+        <div class="weather-box">
+            <div class="location"> Gurugram, IN</div>
+            <div class="temp" id="temperature"></div>
+            <div class="weather" id="weatherCondition"></div>
+        </div>
+    </div>
+
+    <script>
+        // show time
+        function showDateTime() {
+            // Display only the current time
+            const date = new Date();
+            const timeString = date.toLocaleTimeString(); // Get the time part only
+            document.getElementById("dateTime").innerText =  timeString;
+        }
+
+        // show weather
+        const api = {
+            key: "b4bb2683d929898eef8799e8f7d5f9c5",
+            base: "https://api.openweathermap.org/data/2.5/"
+        };
+
+        function fetchWeather() {
+            fetch(`${api.base}weather?q=Delhi,IN&units=metric&APPID=${api.key}`)
+                .then(res => res.json())
+                .then(result => {
+                    updateWeatherUI(result);
+                })
+                .catch(error => {
+                    console.error('Error fetching weather:', error);
+                    document.getElementById('temperature').textContent = 'Weather data unavailable';
+                    document.getElementById('weatherCondition').textContent = 'Please try again later';
+                });
+        }
+
+        function updateWeatherUI(weather) {
+            document.getElementById('temperature').textContent = `${Math.round(weather.main.temp)}°C`;
+            document.getElementById('weatherCondition').textContent = weather.weather[0].main;
+
+            if (weather.main.temp > 16) {
+                document.querySelector('.app').classList.add('warm');
+            } else {
+                document.querySelector('.app').classList.remove('warm');
+            }
+        }
+
+        function dateBuilder(d) {
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const days = ["Sunday", "Monday", 'Tuesday', "Wednesday", "Thursday", "Friday", "Saturday"];
+
+            let day = days[d.getDay()];
+            let date = d.getDate();
+            let month = months[d.getMonth()];
+            let year = d.getFullYear();
+
+            return `${day} ${date} ${month} ${year}`;
+        }
+
+        // GREETINGS
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            let greeting;
+            if (hour < 12) greeting = "Good morning!";
+            else if (hour < 18) greeting = "Good afternoon!";
+            else greeting = "Good evening!";
+            document.getElementById('greeting').textContent = `${greeting} 🌻`;
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('currentDate').textContent = dateBuilder(now);
+        }
+
+        // Initial calls
+        fetchWeather();
+        updateGreeting();
+        updateDateTime();
+        showDateTime()
+
+        // Update weather every 5 minutes
+        setInterval(fetchWeather, 300000);
+
+        // Update date and greeting every minute
+        setInterval(() => {
+            updateDateTime();
+            updateGreeting();
+            showDateTime()
+        }, 1000);
+    </script>
+</body>
+
+</html>
